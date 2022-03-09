@@ -4,10 +4,6 @@ import { RecoilRoot } from "recoil";
 
 import { App } from "./App";
 
-// // setup fake backend
-// import { fakeBackend } from './_helpers';
-// fakeBackend();
-
 ReactDOM.render(
   <React.StrictMode>
       <RecoilRoot>
