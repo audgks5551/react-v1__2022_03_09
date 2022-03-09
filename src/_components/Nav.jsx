@@ -7,9 +7,9 @@ function Nav() {
     return (
         <nav>
             <div>
-                <NavLink exact to="/">Home</NavLink>
-                <NavLink exact to="/login">login</NavLink>
-                <NavLink exact to="/signup">signup</NavLink>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/login">login</NavLink>
+                <NavLink to="/signup">signup</NavLink>
             </div>
         </nav>
     );
