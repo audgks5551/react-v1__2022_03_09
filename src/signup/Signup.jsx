@@ -2,8 +2,12 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useUserActions } from "_actions";
+import {message} from "antd";
 
 function Signup() {
+    console.log("Signup()");
+    const userActions = useUserActions();
 
     /**
      * 유효성 검증
@@ -18,13 +22,18 @@ function Signup() {
     const { errors, isSubmitting } = formState;
 
     function onSubmit({ username, password, name }) {
-        console.log("username : " + username);
-        console.log("password : " + password);
-        console.log("name : " + name);
+        return userActions.signup(username, password, name)
+            .catch(error => {
+                console.log(message);
+                setError("apiError", { message: error });
+            });
     }
 
     return (
         <div>
+            <div>
+                <h1>회원가입</h1>
+            </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <label>Username</label>
@@ -34,14 +43,19 @@ function Signup() {
                 <div>
                     <label>Password</label>
                     <input name="password" type="password" {...register("password")} />
+                    <div>{errors.password?.message}</div>
                 </div>
                 <div>
                     <label>Name</label>
                     <input name="name" type="text" {...register("name")}/>
+                    <div>{errors.name?.message}</div>
                 </div>
                 <button disabled={isSubmitting}>
                     회원가입
                 </button>
+                {errors.apiError &&
+                    <div>{errors.error?.message}</div>
+                }
             </form>
         </div>
     );

@@ -6,11 +6,16 @@ import {
     Route,
     Routes,
 } from "react-router-dom";
-import { Signup } from "./signup";
-import { Login } from "./login";
-import { Home } from "./home";
+import { authAtom } from "_state";
+import { useRecoilValue } from "recoil";
+import { Signup } from "signup";
+import { Login } from "login";
+import { Home } from "home";
 
 function App() {
+    const auth = useRecoilValue(authAtom);
+    console.log("auth = " + auth);
+
     return (
         <div>
             <Router>
