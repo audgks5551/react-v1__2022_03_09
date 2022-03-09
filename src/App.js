@@ -1,18 +1,7 @@
-import React from 'react';
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
+export { App };
 
 function App() {
-  return (
-    <RecoilRoot>
-      
-    </RecoilRoot>
-  );
+    return (
+        <div>App</div>
+    );
 }
-
-export default App;
