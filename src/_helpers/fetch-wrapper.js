@@ -29,19 +29,15 @@ function useFetchWrapper() {
 
     function handleResponse(response) {
         console.log("useFetchWrapper.handleResponse()");
+
         return response.text().then(text => {
             const data = text && JSON.parse(text);
-            console.log(data);
-            if(!response.ok) {
-                console.log("response error");
-                console.log(data.message());
-                console.log(response.statusText);
-                const error = (data && data.message) || response.statusText;
-                console.log(error);
-                return Promise.reject(error);
+
+            if(response.status == 409) {
+                console.log("status: " + response.status);
+                return Promise.reject(data.error);
             }
 
-            console.log(data);
             return data;
         });
     }

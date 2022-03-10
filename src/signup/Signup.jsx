@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useUserActions } from "_actions";
-import {message} from "antd";
 
 function Signup() {
     console.log("Signup()");
@@ -24,7 +23,7 @@ function Signup() {
     function onSubmit({ username, password, name }) {
         return userActions.signup(username, password, name)
             .catch(error => {
-                console.log(message);
+                console.log("error: " + error);
                 setError("apiError", { message: error });
             });
     }
@@ -34,6 +33,11 @@ function Signup() {
             <div>
                 <h1>회원가입</h1>
             </div>
+
+            {errors.apiError &&
+                <div>{errors.apiError?.message}</div>
+            }
+
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <label>Username</label>
@@ -53,9 +57,7 @@ function Signup() {
                 <button disabled={isSubmitting}>
                     회원가입
                 </button>
-                {errors.apiError &&
-                    <div>{errors.error?.message}</div>
-                }
+
             </form>
         </div>
     );
