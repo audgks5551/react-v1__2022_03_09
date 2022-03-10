@@ -3,7 +3,6 @@ import { useFetchWrapper } from "_helpers";
 import { authAtom } from "_state";
 import { useNavigate } from "react-router-dom";
 
-
 export { useUserActions };
 
 function useUserActions() {
@@ -13,7 +12,6 @@ function useUserActions() {
     const setAuth = useSetRecoilState(authAtom);
     const history = useNavigate();
 
-
     return { signup };
 
     function signup(username, password, name) {
@@ -22,10 +20,8 @@ function useUserActions() {
             .then(user => {
                 localStorage.setItem("user", JSON.stringify(user));
                 setAuth(user);
-
                 history("/");
             })
-
     }
 }
 
