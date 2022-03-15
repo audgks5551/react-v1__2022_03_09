@@ -24,7 +24,7 @@ function useFetchWrapper() {
     }
 
     function authHeader() {
-        return { Authorization: "no" };
+        return { };
     }
 
     function handleResponse(response) {
@@ -32,18 +32,18 @@ function useFetchWrapper() {
 
         return response.text().then(text => {
             const data = text && JSON.parse(text);
-            console.log();
+            console.log(data);
             if (response.status === 409) {
                 console.log("status: " + response.status);
                 return Promise.reject(data.error);
             }
 
-            if (response.ok) {
-                const token = response.headers
-                    .get("Authorization")
-                    .replaceAll("Bearer ", "");
-                localStorage.setItem('token', token);
-            }
+            // if (response.ok) {
+            //     const token = response.headers
+            //         .get("Authorization")
+            //         .replaceAll("Bearer ", "");
+            //     localStorage.setItem('token', token);
+            // }
 
             return data;
         });
