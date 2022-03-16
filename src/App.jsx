@@ -11,6 +11,7 @@ import { useRecoilValue } from "recoil";
 import { Signup } from "signup";
 import { Login } from "login";
 import { Home } from "home";
+import {Post} from "./post";
 
 function App() {
     const auth = useRecoilValue(authAtom);
@@ -25,6 +26,7 @@ function App() {
                         <Route exact path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<Signup />} />
+                        <Route path="/post" element={<Post />} />
                     </Routes>
                 </div>
             </Router>

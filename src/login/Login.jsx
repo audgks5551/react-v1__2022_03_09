@@ -1,16 +1,21 @@
-import React from 'react';
-import {useUserActions} from "../_actions";
+import { useEffect } from 'react';
+import { useUserActions } from "../_actions";
 import * as Yup from "yup";
-import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
-import {useForm} from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+import { useForm } from "react-hook-form";
+import { useRecoilValue } from "recoil";
+import { authAtom } from "_state";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-    console.log("Login()");
     const userActions = useUserActions();
+    const auth = useRecoilValue(authAtom);
+    const history = useNavigate();
 
-    /**
-     * 유효성 검증
-     */
+    useEffect(() => {
+        if (auth) history('/');
+    }, []);
+
     const validationSchema = Yup.object().shape({
         username: Yup.string().required("아이디를 입력해주세요"),
         password: Yup.string().required("비밀번호를 입력해주세요"),
@@ -22,7 +27,6 @@ function Login() {
     function onSubmit({ username, password }) {
         return userActions.login(username, password)
             .catch(error => {
-                console.log("error: " + error);
                 setError("apiError", { message: error });
             });
     }
@@ -52,6 +56,7 @@ function Login() {
                     로그인
                 </button>
             </form>
+            <a href="#" >카카오로그인</a>
         </div>
     );
 }

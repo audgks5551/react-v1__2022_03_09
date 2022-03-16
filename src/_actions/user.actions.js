@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 export { useUserActions };
 
 function useUserActions() {
-    console.log("useUserActions()");
     const baseUrl = process.env.REACT_APP_API_URL;
     const fetchWrapper = useFetchWrapper();
     const setAuth = useSetRecoilState(authAtom);
@@ -18,20 +17,20 @@ function useUserActions() {
     };
 
     function signup(username, password, name) {
-        console.log("useUserActions.signup()");
         return fetchWrapper.post(`${baseUrl}/users`,{ username, password, name })
-            .then(user => {
-                localStorage.setItem("user", JSON.stringify(user));
-                setAuth(user);
+            .then(() => {
                 history("/login");
             })
     }
 
     function login(username, password) {
-        console.log("useUserActions.login()");
         return fetchWrapper.post(`${baseUrl}/login`,{ username, password })
-            .then(token => {
-                console.log(token);
+            .then(response => {
+                const access_token = response.data.access_token;
+                const refresh_token = response.data.refresh_token;
+                localStorage.setItem('access_token', access_token);
+                localStorage.setItem('refresh_token', refresh_token);
+                history("/");
             })
     }
 }

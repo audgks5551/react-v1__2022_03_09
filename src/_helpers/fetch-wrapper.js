@@ -1,15 +1,12 @@
 export { useFetchWrapper };
 
 function useFetchWrapper() {
-    console.log("useFetchWrapper()");
-
     return {
         get: request("GET"),
         post: request("POST")
     }
 
     function request(method) {
-        console.log("useFetchWrapper.request()");
         return (url, body) => {
             const requestOptions =  {
                 method,
@@ -28,13 +25,10 @@ function useFetchWrapper() {
     }
 
     function handleResponse(response) {
-        console.log("useFetchWrapper.handleResponse()");
-
         return response.text().then(text => {
             const data = text && JSON.parse(text);
-            console.log(data);
+
             if (response.status === 409) {
-                console.log("status: " + response.status);
                 return Promise.reject(data.error);
             }
 

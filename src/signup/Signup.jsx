@@ -5,12 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useUserActions } from "_actions";
 
 function Signup() {
-    console.log("Signup()");
     const userActions = useUserActions();
 
-    /**
-     * 유효성 검증
-     */
     const validationSchema = Yup.object().shape({
         username: Yup.string().required("아이디를 입력해주세요"),
         password: Yup.string().required("비밀번호를 입력해주세요"),
@@ -58,6 +54,7 @@ function Signup() {
                     회원가입
                 </button>
             </form>
+            <a href="#" >카카오로그인</a>
         </div>
     );
 }
